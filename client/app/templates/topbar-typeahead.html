@@ -1,0 +1,4 @@
+<a ui-sref="profile({id: {{match.model.id}} })">
+	<img ng-src="{{match.model.avatar}}" width="28" />
+	<span class="typeahead-entry" bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+</a>

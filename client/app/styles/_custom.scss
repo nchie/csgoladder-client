@@ -1,0 +1,185 @@
+.toggled-on{
+  opacity: 1;
+}
+
+.toggled-off{
+  opacity: 0.5;
+}
+
+.map-icon{
+  width: 70px;
+  height: 40px;
+
+  border: 1px black solid;
+  border-radius: 3px;
+
+  //@include single-transition(opacity, 0.1s, ease-in);
+}
+
+
+li.topuser-button
+{
+	white-space: nowrap;
+	span.topuser-name
+	{
+		//padding-left: 15px;
+		padding-right: 10px;
+		font-weight: 600;
+	}
+}
+
+.radius-bottom
+{
+	@include side-radius(bottom, $global-radius);
+}
+
+.radius-top
+{
+	@include side-radius(top, $global-radius);
+}
+
+
+// Foundation topbar styling
+
+$topbar-dropdown-height: 35px;
+$topbar-dropdown-border: 1px RGBA(0,0,0,0.7) solid;
+$topbar-dropdown-border-bottomradius: $global-radius;
+
+.top-bar-section 
+{
+	a#steam-login
+	{
+		&:hover
+		{
+			//Inherit, unset, initial?
+			background-color: $topbar-bg;
+		}
+	}
+	ul.dropdown
+	{
+		border-bottom: $topbar-dropdown-border;
+		border-left: $topbar-dropdown-border;
+		border-right: $topbar-dropdown-border;
+
+		border-top-style: none;
+
+		@include side-radius(bottom, $global-radius);
+
+		li
+		{
+			&:not(.has-form) a:not(.button)
+			{
+				line-height: $topbar-dropdown-height;
+			}
+			&.active:not(.has-form) a:not(.button)
+			{
+				line-height: $topbar-dropdown-height;
+			}
+		}
+	}
+}
+
+
+//Fix the typeahead within top-bar styling
+$typeahead-width: 160px;
+$typeahead-border: 0px;
+$typeahead-border-bottomradius: $global-radius;
+$typeahead-entry-height: 35px;
+$typeahead-bg-active-hover: scale-color($topbar-bg, $lightness: +7%);
+
+.top-bar-section
+{
+	.search
+	{
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	li
+	{
+		input.typeahead
+		{
+			//width: $typeahead-width;
+			@include side-radius(left, $typeahead-border-bottomradius);
+		}
+		a.button
+		{
+			@include side-radius(right, $typeahead-border-bottomradius);
+		}
+
+		ul.f-dropdown
+		{
+			width: 100%;
+			border: $typeahead-border;
+			@include side-radius(bottom, $typeahead-border-bottomradius);
+
+			overflow: hidden;
+			white-space: nowrap;
+			&::before
+			{
+				display: none;
+			}
+			&::after
+			{
+				display: none;
+			}
+			li{
+				width: 100%;
+				&:not(.has-form) a:not(.button)
+				{
+					padding-left: 3px;
+					line-height: $typeahead-entry-height;
+				}
+
+				&.active:not(.has-form) a:not(.button)
+				{
+					background-color: $typeahead-bg-active-hover;
+					line-height: $typeahead-entry-height;
+				}
+			}
+		}
+	}
+}
+
+
+// Smart-table styling
+.st-sort-ascent{
+	padding-right: 25px;
+    position: relative;
+}
+
+.st-sort-descent{
+	padding-right: 25px;
+    position: relative;
+}
+
+.st-sort-ascent:before{
+    content:"\A";
+
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	
+	border-bottom: 5px solid black;
+
+    position: absolute;
+
+    right: 10px;
+    top: 15px;
+}
+
+.st-sort-descent:before{
+    content:"\A";
+
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	
+	border-top: 5px solid black;
+
+    position: absolute;
+
+    right: 10px;
+    top: 15px;
+}

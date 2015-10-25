@@ -1,0 +1,19 @@
+
+<div class="panel radius">
+  <div ng-if="contentVm.user">
+    <h1> <a href="http://steamcommunity.com/profiles/{{contentVm.user.steamId64}}">{{contentVm.user.displayName}}</a></h1><img ng-src="{{contentVm.user.avatarFull}}"/>
+    <p>{{contentVm.user.realName}}</p>
+    <p>{{contentVm.user.countryCode}}</p>
+    <p ng-if="!!contentVm.user.Team">
+       
+      Playing in <a ui-sref="team({id : contentVm.user.Team.id})">{{contentVm.user.Team.name}} </a>
+    </p>
+    <p>Member since {{contentVm.user.creationDate | date:'yyyy-M-d' : UTC}}</p>
+    <p>SteamId64: {{contentVm.user.steamId64}}</p>
+  </div>
+  <div ng-if="!contentVm.user">
+    <div class="content-top">
+      <h1>User not found!</h1>
+    </div>
+  </div>
+</div>

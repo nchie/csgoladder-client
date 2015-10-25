@@ -1,0 +1,48 @@
+[ui-view].ng-enter{
+  position: absolute;
+  left: 15px;
+  right: 15px;
+  z-index: 100;
+}
+
+[ui-view].ng-leave {
+
+  z-index: 0;
+}
+
+[ui-view].ng-enter {
+}
+
+[ui-view].ng-enter-active {
+
+}
+
+[ui-view].ng-leave {
+}
+
+[ui-view].ng-leave-active {
+}
+
+.fade.ng-enter{
+  animation: fadein 0.5s;
+}
+
+.fade.ng-leave{
+  animation: fadeout 0.5s;
+}
+
+
+.shrink.ng-leave{
+  animation: shrink 0.5s;
+}
+
+@keyframes fadein {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes fadeout {
+  0%   { opacity: 1;}
+  100% { opacity: 0;}
+}
+
