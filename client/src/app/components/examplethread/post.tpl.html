@@ -1,0 +1,12 @@
+<span>
+	<img ng-src="{{postdata.user.avatar}}"/> 
+	#{{postdata.id}} - 
+	<a ui-sref="profile({id: {{postdata.user.id}} })">{{postdata.user.name}} </a>
+	<span ng-if="postdata.user.isMod"> [MOD] </span>
+</span>
+<br>
+<span>{{postdata.text}}</span>
+<br>
+<span>{{postdata.timestamp}}</span>
+<br>
+<br>

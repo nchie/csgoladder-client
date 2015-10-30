@@ -31,8 +31,8 @@ module.exports = function(config) {
       'bower_components/socket.io-client/socket.io.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
-      "src/scripts/app.module.js",
-      "src/scripts/**/*.js",
+      "src/app/app.module.js",
+      "src/app/**/*.js",
       "test/mock/**/*.js",
       "test/spec/**/*.js"
     ],

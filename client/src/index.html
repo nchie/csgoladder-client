@@ -22,7 +22,7 @@
 
     <div class="row">
       <div class="small-12 columns">
-        <div ng-controller="TopbarCtrl as topVm">
+        <div>
           <top-bar>
             <ul class="title-area">
               <li class="name">
@@ -35,13 +35,13 @@
                 <div ng-if="!!mainVm.session.user">
                   <li has-dropdown><a href="">Play</a>
                     <ul top-bar-dropdown="" class="dropdown">
-                      <li><a href="#">Quickmatch</a></li>
-                      <li ng-class="getClass('/lobbies')"><a ui-sref="lobbies">Find a scrim</a></li>
+                      <li><a topbar-entry="">Quickmatch</a></li>
+                      <li><a topbar-entry="" ui-sref="lobbies">Find a scrim</a></li>
                     </ul>
                   </li>
-                  <li ng-class="getClass('/ladders')"><a ui-sref="ladders">Ladder</a></li>
-                  <li ng-class="getClass('/forums')"><a ui-sref="forums">Forums</a></li>
-                  <li ng-class="getClass('/support')" has-dropdown><a ui-sref="support">Support</a>
+                  <li><a topbar-entry="" ui-sref="ladders">Ladder</a></li>
+                  <li active-tab="/forums"><a topbar-entry="" ui-sref="forums">Forums</a></li>
+                  <li has-dropdown><a topbar-entry="" ui-sref="support">Support</a>
                     <ul top-bar-dropdown="" class="dropdown">
                       <li></li>
                       <li><a href="#">Rules</a></li>
@@ -50,9 +50,15 @@
                   </li>
                 </div>
               </ul>
-              <ul class="right">
-                <li ng-if="!mainVm.session.user"><a href="/auth/steam" id="steam-login" target="_self"><img src="http://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_small.png"></a></li>
-                <div ng-if="!!mainVm.session.user">
+              <ul class="right" ng-switch="!!mainVm.session.user">
+                <div ng-switch-when="false">
+                  <li>
+                    <a href="/auth/steam" id="steam-login" target="_self">
+                      <img src="http://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_small.png">
+                    </a>
+                  </li>
+                </div>
+                <div ng-switch-when="true">
                   <li class="has-form hide-for-small">
                     <div class="row collapse">
                       <div class="medium-8 columns">
@@ -61,12 +67,20 @@
                       <div class="medium-4 columns"><a class="button tiny search"><i class="fa fa-search"> </i></a></div>
                     </div>
                   </li>
-                  <li has-dropdown class="topuser-button"><a ui-sref="profile({id : null})"><span class="topuser-name">{{mainVm.session.user.displayName}}</span><img ng-src="{{mainVm.session.user.avatarSmall}}"></a>
+                  <li has-dropdown class="topuser-button"><a ui-sref="profile({id : null})"><span class="topuser-name" ng-bind="mainVm.session.user.displayName"></span><img ng-src="{{mainVm.session.user.avatarSmall}}"></a>
                     <ul top-bar-dropdown="" class="dropdown">
-                      <li ng-class="getClass('/profile')"><a ui-sref="profile({id : null})">Profile</a></li>
-                      <li ng-if="!!mainVm.session.user.team_id" ng-class="getClass('/team')"><a ui-sref="team({id : mainVm.session.user.Team.id})">Team</a></li>
-                      <li ng-class="getClass('/settings')"><a ui-sref="settings">Settings</a></li>
-                      <li><a href="#" logout="">Logout </a></li>
+                      <li>
+                        <a topbar-entry="" ui-sref="profile({id : null})">Profile</a>
+                      </li>
+                      <li ng-if="!!mainVm.session.user.team_id">
+                        <a topbar-entry="" ui-sref="team({id : mainVm.session.user.Team.id})">Team</a>
+                      </li>
+                      <li>
+                        <a topbar-entry="" ui-sref="settings">Settings</a>
+                      </li>
+                      <li>
+                        <a href="#" logout="">Logout </a>
+                      </li>
                     </ul>
                   </li>
                 </div>
@@ -78,7 +92,7 @@
       <div class="large-12 columns">
         <div ng-if="!page.loading" ui-view></div>
         <div ng-if="page.loading">
-          <div ng-include="'templates/loading-large.html'"></div>
+          <div ng-include="'app/common/templates/loading-large.html'"></div>
         </div>
       </div>
       <div class="large-12 columns">
@@ -128,35 +142,41 @@
     <!-- endbuild -->
 
         <!-- build:js({.tmp,src}) scripts/scripts.js -->
-        <script src="scripts/shared/angular-socket.js"></script>
+        <script src="app/common/modules/angular-socket.js"></script>
 
 
-        <script src="scripts/app.module.js"></script>
-        <script src="scripts/app.config.js"></script>
-        <script src="scripts/app.run.js"></script>
+        <script src="app/app.module.js"></script>
+        <script src="app/app.config.js"></script>
+        <script src="app/app.run.js"></script>
 
-        <script src="scripts/services/AuthResolver.js"></script>
-        <script src="scripts/services/AuthService.js"></script>
-        <script src="scripts/services/LobbyService.js"></script>
-        <script src="scripts/services/Session.js"></script>
-        <script src="scripts/services/TeamService.js"></script>
-        <script src="scripts/services/UserService.js"></script>
+        <script src="app/services/AuthResolver.js"></script>
+        <script src="app/services/AuthService.js"></script>
+        <script src="app/services/LobbyService.js"></script>
+        <script src="app/services/Session.js"></script>
+        <script src="app/services/TeamService.js"></script>
+        <script src="app/services/UserService.js"></script>
 
-        <script src="scripts/directives/logout.js"></script>
-        <script src="scripts/directives/validateEmail.js"></script>
-        <script src="scripts/directives/userSearch.js"></script>
+        <script src="app/common/directive/logout.js"></script>
+        <script src="app/common/directive/validateEmail.js"></script>
 
-        <script src="scripts/controllers/About.js"></script>
-        <script src="scripts/controllers/Forums.js"></script>
-        <script src="scripts/controllers/Home.js"></script>
-        <script src="scripts/controllers/Ladders.js"></script>
-        <script src="scripts/controllers/Lobbies.js"></script>
-        <script src="scripts/controllers/Main.js"></script>
-        <script src="scripts/controllers/Profile.js"></script>
-        <script src="scripts/controllers/Settings.js"></script>
-        <script src="scripts/controllers/Support.js"></script>
-        <script src="scripts/controllers/Team.js"></script>
-        <script src="scripts/controllers/Topbar.js"></script>
+        <script src="app/main.ctrl.js"></script>
+
+        <script src="app/components/topbar/topbar-entry.directive.js"></script>
+        <script src="app/components/topbar/usersearch.directive.js"></script>
+
+        <script src="app/components/home/home.ctrl.js"></script>
+
+        <script src="app/components/examplethread/examplethread.ctrl.js"></script>
+        <script src="app/components/examplethread/post.directive.js"></script>
+
+        <script src="app/components/about/about.ctrl.js"></script>
+        <script src="app/components/forums/forums.ctrl.js"></script>
+        <script src="app/components/ladders/ladders.ctrl.js"></script>
+        <script src="app/components/lobbies/lobbies.ctrl.js"></script>
+        <script src="app/components/profile/profile.ctrl.js"></script>
+        <script src="app/components/settings/settings.ctrl.js"></script>
+        <script src="app/components/support/support.ctrl.js"></script>
+        <script src="app/components/team/team.ctrl.js"></script>
 
         <!-- endbuild -->
   </body>

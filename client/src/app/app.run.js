@@ -5,8 +5,8 @@
 		.module('clientApp')
 	    .run(run);
 
-    run.$inject = ['$rootScope', '$state', 'UserService', 'AuthService', 'Session'];
-	function run($rootScope, $state, UserService, AuthService, Session)
+    run.$inject = ['$rootScope', '$state', 'Session'];
+	function run($rootScope, $state, Session)
 	{
 
         /*UserService.getUser().then(function(result){

@@ -17,7 +17,7 @@
             .state('home',{
                 title: "Home",
                 url: '/',
-                templateUrl: 'views/home.html',
+                templateUrl: 'app/components/home/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: 'contentVm',
                 data: {
@@ -26,17 +26,17 @@
             .state('nopermission',{
                 title: "No permission",
                 url: '/nopermission',
-                templateUrl: 'views/nopermission.html'
+                templateUrl: 'app/common/templates/nopermission.html'
             })
             .state('404',{
                 title: "404 Not found",
                 url: '/404',
-                templateUrl: 'views/404.html'
+                templateUrl: 'app/common/templates/404.html'
             })
             .state('lobbies',{
                 title: "Lobbies",
                 url: '/lobbies',
-                templateUrl: 'views/lobbies.html',
+                templateUrl: 'app/components/lobbies/lobbies.html',
                 controller: 'LobbiesCtrl',
                 controllerAs: 'contentVm',
                 data: {
@@ -55,7 +55,7 @@
             .state('teams',{
                 title: "Teams",
                 url: '/teams',
-                templateUrl: 'views/teams.html',
+                templateUrl: 'app/components/teams/teams.html',
                 controller: 'TeamsCtrl',
                 controllerAs: 'contentVm',
                 data: {
@@ -64,7 +64,7 @@
             .state('forums',{
                 title: "Forums",
                 url: '/forums',
-                templateUrl: 'views/forums.html',
+                templateUrl: 'app/components/forums/forums.html',
                 controller: 'ForumsCtrl',
                 controllerAs: 'contentVm',
                 data: {
@@ -73,7 +73,7 @@
             .state('support',{
                 title: "Support",
                 url: '/support',
-                templateUrl: 'views/support.html',
+                templateUrl: 'app/components/support/support.html',
                 controller: 'SupportCtrl',
                 controllerAs: 'contentVm',
                 data: {
@@ -82,7 +82,7 @@
             .state('about',{
                 title: "About",
                 url: '/about',
-                templateUrl: 'views/about.html',
+                templateUrl: 'app/components/about/about.html',
                 controller: 'AboutCtrl',
                 controllerAs: 'contentVm',
                 data: {
@@ -91,7 +91,7 @@
             .state('profile',{
                 title: "Profile",
                 url: '/profile?id',
-                templateUrl: 'views/profile.html',
+                templateUrl: 'app/components/profile/profile.html',
                 controller: 'ProfileCtrl',
                 controllerAs: 'contentVm',
                 resolve: {
@@ -108,7 +108,7 @@
             .state('team',{
                 title: "Team",
                 url: '/team?id',
-                templateUrl: 'views/team.html',
+                templateUrl: 'app/components/team/team.html',
                 controller: 'TeamCtrl',
                 controllerAs: 'contentVm',
                 resolve: {
@@ -124,7 +124,7 @@
             .state('ladders',{
                 title: "Ladder",
                 url: '/ladders',
-                templateUrl: 'views/ladders.html',
+                templateUrl: 'app/components/ladders/ladders.html',
                 controller: 'LaddersCtrl',
                 controllerAs: 'contentVm',
                 resolve: {
@@ -133,11 +133,12 @@
                     }],
                 }
             })
-            .state('loading',{
-                title: "Loading",
-                url: '/loading',
-                template: 'loading',
-                controller: 'LaddersCtrl',
+            .state('examplethread',{
+                title: "Example thread",
+                url: '/exthread',
+                templateUrl: 'app/components/examplethread/examplethread.html',
+                controller: 'ThreadCtrl',
+                controllerAs: 'contentVm',
                 resolve: {
                     auth: ['AuthResolver', function resolveAuthentication(AuthResolver) { 
                         return AuthResolver.resolve();
@@ -147,7 +148,7 @@
             .state('settings',{
                 title: "Settings",
                 url: '/settings',
-                templateUrl: 'views/settings.html',
+                templateUrl: 'app/components/settings/settings.html',
                 controller: 'SettingsCtrl',
                 controllerAs: 'contentVm',
                 resolve: {

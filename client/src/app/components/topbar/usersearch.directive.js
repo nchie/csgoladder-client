@@ -13,7 +13,7 @@
             scope: {},
             replace: true,
             restrict: 'E',
-            template: '<input type="text" ng-model="asyncSelected" placeholder="Search" typeahead="user as user.name for user in searchUsers($viewValue)" typeahead-template-url="templates/topbar-typeahead.html" typeahead-loading="loadingLocations" class="typeahead form-control">',
+            template: '<input type="text" ng-model="asyncSelected" placeholder="Search" typeahead="user as user.name for user in searchUsers($viewValue)" typeahead-template-url="app/components/topbar/usersearch-dropdown.tpl.html" typeahead-loading="loadingLocations" class="typeahead form-control">',
 
             link: function(scope, element, attrs) {
         //TODO: Filter results serverside so that email and such aren't sent
