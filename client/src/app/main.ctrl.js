@@ -13,16 +13,16 @@
 		.module('clientApp')
 	    .controller('MainCtrl', controller);
 
-    controller.$inject = ['$scope', 'Session'];
-	function controller($scope, Session)
+    controller.$inject = ['$scope', 'Session', 'AuthService'];
+	function controller($scope, Session, AuthService)
 	{
-        var vm = this;
+        var self = this;
 
         //Needs this to pass the sample test
-        vm.awesomeThings = ['food', 'candy', 'not karma' ];
+        self.awesomeThings = ['food', 'candy', 'not karma' ];
 
-        //vm.authService = AuthService;
-        vm.session = Session;
+        self.user = AuthService.getCurrentUser;
+        self.logout = AuthService.logout;
 
         activate();
         function activate()

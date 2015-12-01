@@ -5,20 +5,22 @@
 		.module('clientApp')
 	    .factory('AuthService', service);
 
-    service.$inject = ['$http', '$q', '$state', 'Session'];
-	function service($http, $q, $state, Session)
+    service.$inject = ['$state', 'Session'];
+	function service($state, Session)
 	{
         var authService = {};
 
         authService.logout = function()
         {
-            return $http
-                .post('/logout')
-                .then(function (res) {
-                    Session.destroy();
-                    $state.go('home');
-                });
+            Session.remove().then(function(){
+                $state.go('front');
+            })
         };
+
+        authService.getCurrentUser = function()
+        {
+            return Session.getUser();
+        }
 
         authService.isAuthorized = function (authorizedRoles) {
             if (!angular.isArray(authorizedRoles)) 

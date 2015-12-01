@@ -10,9 +10,8 @@
 	{
         var userService = {};
 
-        userService.getUser = getUser;
-        userService.updateUser = updateUser;
-        userService.saveUser = saveUser;
+        userService.get = getUser;
+        userService.update = updateUser;
 
 
         function getUser(id) {
@@ -21,30 +20,15 @@
                 return $http
                     .get('/api/users/' + id)
                         .then(function (res) {
-
-                            if(res.data.status === 'success')
-                            {
-                                return res.data.data;
-                            }
-                            else if(res.data.status === 'error')
-                            {
-                                return $q.reject(res.data.message);
-                            }
+                            return res.data;
                         });
             }
             else
             {
                 return $http
-                    .get('/api/users/me')
+                    .get('/api/my/user')
                         .then(function (res) {
-                            if(res.data.status === 'success')
-                            {
-                                return res.data.data;
-                            }
-                            else if(res.data.status === 'error')
-                            {
-                                return $q.reject(res.data.message);
-                            }
+                            return res.data;
                         });
             }
         }
@@ -52,36 +36,13 @@
         function updateUser(user)
         {
             return $http
-                .put('/api/users', user)
+                .put('/api/users/' + user.id, user)
                     .then(function (res) {
-
-                        if(res.data.status === 'success')
-                        {
-                            return res.data.data;
-                        }
-                        else if(res.data.status === 'error')
-                        {
-                            return $q.reject(res.data.message);
-                        }
+                        return res.data;
                     });
         }
 
-        function saveUser(user)
-        {
-            return $http
-                .put('/api/users', user)
-                    .then(function (res) {
 
-                        if(res.data.status === 'success')
-                        {
-                            return res.data.data;
-                        }
-                        else if(res.data.status === 'error')
-                        {
-                            return $q.reject(res.data.message);
-                        }
-                    });
-        }
 
         return userService;
 	}

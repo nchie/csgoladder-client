@@ -12,7 +12,7 @@
 	 */
 	angular
 	  .module('clientApp', [
-	    'ngAnimate', 'mm.foundation', 'ui.router', 'smart-table', 'socket.io'
+	    'ngAnimate', 'ui.bootstrap', 'ui.router', 'smart-table', 'socket.io', 'ngResource'
 	  ]);
   
 })();

@@ -15,104 +15,135 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-controller="MainCtrl as mainVm">
+  <body ng-controller="MainCtrl as vm">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div class="row">
-      <div class="small-12 columns">
-        <div>
-          <top-bar>
-            <ul class="title-area">
-              <li class="name">
-                <h1><a ui-sref="home">PLACEHOLDER</a></h1>
-              </li>
-              <li toggle-top-bar="" class="menu-icon"><a href="#">Menu</a></li>
-            </ul>
-            <top-bar-section>
-              <ul class="left">
-                <div ng-if="!!mainVm.session.user">
-                  <li has-dropdown><a href="">Play</a>
-                    <ul top-bar-dropdown="" class="dropdown">
-                      <li><a topbar-entry="">Quickmatch</a></li>
-                      <li><a topbar-entry="" ui-sref="lobbies">Find a scrim</a></li>
+    <div class="main">
+        
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <!-- Left side -->
                     </ul>
-                  </li>
-                  <li><a topbar-entry="" ui-sref="ladders">Ladder</a></li>
-                  <li active-tab="/forums"><a topbar-entry="" ui-sref="forums">Forums</a></li>
-                  <li has-dropdown><a topbar-entry="" ui-sref="support">Support</a>
-                    <ul top-bar-dropdown="" class="dropdown">
-                      <li></li>
-                      <li><a href="#">Rules</a></li>
-                      <li><a href="#">Tickets</a></li>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="">About</a></li>
+                        <li><a href="">Contact</a></li>
+                        <li><a href="">FAQ</a></li>
+                        <li><a href="">Help</a></li>
+
                     </ul>
-                  </li>
                 </div>
-              </ul>
-              <ul class="right" ng-switch="!!mainVm.session.user">
-                <div ng-switch-when="false">
-                  <li>
-                    <a href="/auth/steam" id="steam-login" target="_self">
-                      <img src="http://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_small.png">
-                    </a>
-                  </li>
-                </div>
-                <div ng-switch-when="true">
-                  <li class="has-form hide-for-small">
-                    <div class="row collapse">
-                      <div class="medium-8 columns">
-                        <user-search></user-search>
-                      </div>
-                      <div class="medium-4 columns"><a class="button tiny search"><i class="fa fa-search"> </i></a></div>
-                    </div>
-                  </li>
-                  <li has-dropdown class="topuser-button"><a ui-sref="profile({id : null})"><span class="topuser-name" ng-bind="mainVm.session.user.displayName"></span><img ng-src="{{mainVm.session.user.avatarSmall}}"></a>
-                    <ul top-bar-dropdown="" class="dropdown">
-                      <li>
-                        <a topbar-entry="" ui-sref="profile({id : null})">Profile</a>
-                      </li>
-                      <li ng-if="!!mainVm.session.user.team_id">
-                        <a topbar-entry="" ui-sref="team({id : mainVm.session.user.Team.id})">Team</a>
-                      </li>
-                      <li>
-                        <a topbar-entry="" ui-sref="settings">Settings</a>
-                      </li>
-                      <li>
-                        <a href="#" logout="">Logout </a>
-                      </li>
-                    </ul>
-                  </li>
-                </div>
-              </ul>
-            </top-bar-section>
-          </top-bar>
-        </div>
-      </div>
-      <div class="large-12 columns">
-        <div ng-if="!page.loading" ui-view></div>
+            </div>
+        </nav>
+
+        <nav class="navbar navbar-default">
+
+            <div class="navbar-header">
+                <button ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed" type="button" class="navbar-toggle collapsed" >
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="pull-left" ui-sref="front"><img src="img/csgo-icon.png" /></a>
+            </div>
+            <div id="navbar" uib-collapse="isCollapsed" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a ui-sref="home">Home</a></li>
+                    <li uib-dropdown>
+                        <a uib-dropdown-toggle href="" data-toggle="dropdown" role="button">Play</a>
+                        <ul class="uib-dropdown-menu">
+                            <li><a topbar-entry="">Quickmatch</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a topbar-entry="" ui-sref="lobbies">Find a scrim</a></li>
+                        </ul>
+                    </li>
+                    <li><a ui-sref="ladders">Ladder</a></li>
+                    <li><a ui-sref="forums">Forums</a></li>
+                    <li uib-dropdown>
+                        <a uib-dropdown-toggle href="" data-toggle="dropdown" role="button">Teams</a>
+                        <ul class="uib-dropdown-menu">
+                            <li><a topbar-entry="" href="">Browse teams</a></li>
+                            <li><a topbar-entry="" href="">Find a team</a></li>
+                            <li class="divider" role="separator" ng-if="!!vm.user()"></li>
+                            <li ng-if="!!vm.user().team_id"><a topbar-entry="" ui-sref="team({id : vm.user().team_id})">My team</a></li>
+                            <li ng-if="!vm.user().team_id && !!vm.user()" ><a topbar-entry="" ui-sref="registerteam">Register team</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" ng-if="!vm.user()">
+                    <li class="login">
+                        <a href="/auth/steam" id="steam-login" target="_self">
+                        <img class="pull-right bottom-item" src="http://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_large_noborder.png" />
+                        </a>
+                    </li>
+                </ul>
+
+
+
+
+                <ul class="nav navbar-nav navbar-right" ng-if="!!vm.user()">
+
+
+
+                    <li class="hidden-xs">
+                        <form class="navbar-form" role="search">
+                            <div class="input-group">
+
+                                <user-search></user-search>
+
+                                <div class="input-group-btn">
+                                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+
+
+
+
+                    <li class="user" uib-dropdown>
+                        <a uib-dropdown-toggle role="button">
+                            <div class="pull-right">
+                                <img ng-src="{{vm.user().avatar_medium}}">
+                                <span class="caret"></span>
+                            </div>
+                            <div class="navbar-username pull-right">
+                                <span ng-bind="vm.user().steam_name"></span>
+                            </div>
+                        </a>
+                        <ul class="uib-dropdown-menu">
+                            <li>
+                                <a topbar-entry="" ui-sref="profile({id : vm.user().id})">Profile</a>
+                            </li>
+                            <li ng-if="!!vm.user().team_id">
+                                <a topbar-entry="" ui-sref="team({id : vm.user().team_id})">Team</a>
+                            </li>
+                            <li>
+                                <a topbar-entry="" ui-sref="settings">Settings</a>
+                            </li>
+                            <li>
+                                <a href="" ng-click="vm.logout()">Logout </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div><!--/.nav-collapse -->
+
+        </nav>
+
+        <div ng-if="!page.loading" class="main-view" ui-view></div>
+
         <div ng-if="page.loading">
-          <div ng-include="'app/common/templates/loading-large.html'"></div>
+            <div ng-include="'app/common/templates/loading-large.html'"></div>
         </div>
-      </div>
-      <div class="large-12 columns">
-        <footer>
-          <hr>
-          <div class="row">
-            <div class="large-6 columns">
-              <p>© Blabla</p>
-            </div>
-            <div class="large-6 columns">
-              <ul class="inline-list right">
-                <li><a href="http://steampowered.com/">Powered by Steam</a></li>
-                <li><a href="#">Link 2</a></li>
-                <li><a href="#">Link 3</a></li>
-                <li><a href="#">Link 4</a></li>
-              </ul>
-            </div>
-          </div>
-        </footer>
-      </div>
+
+
     </div>
 
 
@@ -131,17 +162,18 @@
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
-    <script src="bower_components/modernizr/modernizr.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-foundation/mm-foundation-tpls.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-smart-table/dist/smart-table.js"></script>
     <script src="bower_components/socket.io-client/socket.io.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,src}) scripts/scripts.js -->
+        <script src="app/polyfills.js"></script>
         <script src="app/common/modules/angular-socket.js"></script>
 
 
@@ -150,11 +182,13 @@
         <script src="app/app.run.js"></script>
 
         <script src="app/services/AuthResolver.js"></script>
-        <script src="app/services/AuthService.js"></script>
         <script src="app/services/LobbyService.js"></script>
         <script src="app/services/Session.js"></script>
+        <script src="app/services/AuthService.js"></script>
+
         <script src="app/services/TeamService.js"></script>
         <script src="app/services/UserService.js"></script>
+        <script src="app/services/ApiService.js"></script>
 
         <script src="app/common/directive/logout.js"></script>
         <script src="app/common/directive/validateEmail.js"></script>
@@ -169,6 +203,11 @@
         <script src="app/components/examplethread/examplethread.ctrl.js"></script>
         <script src="app/components/examplethread/post.directive.js"></script>
 
+        <script src="app/components/team/team.ctrl.js"></script>
+        <script src="app/components/team/register.ctrl.js"></script>
+
+        <script src="app/common/controllers/dialog.ctrl.js"></script>
+        <script src="app/components/front/front.ctrl.js"></script>
         <script src="app/components/about/about.ctrl.js"></script>
         <script src="app/components/forums/forums.ctrl.js"></script>
         <script src="app/components/ladders/ladders.ctrl.js"></script>
@@ -176,8 +215,6 @@
         <script src="app/components/profile/profile.ctrl.js"></script>
         <script src="app/components/settings/settings.ctrl.js"></script>
         <script src="app/components/support/support.ctrl.js"></script>
-        <script src="app/components/team/team.ctrl.js"></script>
-
         <!-- endbuild -->
   </body>
 </html>

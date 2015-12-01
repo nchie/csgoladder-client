@@ -8,44 +8,19 @@
     service.$inject = ['$http', '$q'];
 	function service($http, $q)
 	{
-        var teamService = {};
-
-        teamService.getTeam = getTeam;
-        teamService.updateTeam = updateTeam;
+        var teamService = {
+            get: getTeam,
+            update: updateTeam,
+            create: createTeam
+        };
 
 
         function getTeam(id) {
-            if(id)
-            {
-                return $http
-                    .get('/api/teams/' + id)
-                        .then(function (res) {
-
-                            if(res.data.status === 'success')
-                            {
-                                return res.data.data;
-                            }
-                            else if(res.data.status === 'error')
-                            {
-                                return $q.reject(res.data.message);
-                            }
-                        });
-            }
-            else
-            {
-                return $http
-                    .get('/api/users/me')
-                        .then(function (res) {
-                            if(res.data.status === 'success')
-                            {
-                                return res.data.data;
-                            }
-                            else if(res.data.status === 'error')
-                            {
-                                return $q.reject(res.data.message);
-                            }
-                        });
-            }
+            return $http
+                .get('/api/teams/' + id)
+                    .then(function (res) {
+                        return res.data
+                    });
         }
 
         function updateTeam(team)
@@ -53,15 +28,16 @@
             return $http
                 .put('/api/teams', team)
                     .then(function (res) {
+                        return res.data
+                    });
+        }
 
-                        if(res.data.status === 'success')
-                        {
-                            return res.data.data;
-                        }
-                        else if(res.data.status === 'error')
-                        {
-                            return $q.reject(res.data.message);
-                        }
+        function createTeam(team)
+        {
+            return $http
+                .post('/api/teams', team)
+                    .then(function (res) {
+                        return res.data
                     });
         }
 

@@ -1,10 +1,19 @@
-<div class="panel radius">
+<div class="container-fluid">
   <div ng-if="contentVm.team">
     <h1>
        
       {{contentVm.team.name}}
     </h1>
-    <p ng-repeat="user in contentVm.team.Users"> <img ng-src="{{user.avatarSmall}}"><a ui-sref="profile({id : user.id})">{{user.displayName}}</a></p>
+    <div ng-repeat="user in contentVm.team.users" ng-switch="contentVm.team.id == vm.user().team_id">
+      <p> 
+        <img ng-src="{{user.avatar_small}}" /><a ui-sref="profile({id : user.id})">{{user.steam_name}}</a>
+          <button class="btn btn-danger" type="button" ng-if="user.id != contentVm.team.leader_id && vm.user().id == contentVm.team.leader_id" ng-click="contentVm.kick(user)">Kick</button>
+          <button class="btn btn-danger" type="button" ng-if="user.id != contentVm.team.leader_id && vm.user().id == contentVm.team.leader_id" ng-click="contentVm.promote(user)">Promote</button>
+      </p>
+    </div>
+    <button class="btn btn-danger" type="button" ng-if="contentVm.team.id == vm.user().team_id" ng-click="contentVm.leave()">Leave</button>
+    <button class="btn btn-danger" type="button" ng-if="vm.user().id == contentVm.team.leader_id" ng-click="contentVm.remove()">Delete</button>
+
   </div>
   <div ng-if="!contentVm.team">
     <div class="content-top">

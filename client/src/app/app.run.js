@@ -48,7 +48,25 @@
 
                 event.preventDefault();
 
-                switch (error) {
+                if(error == 'test')
+                {
+                    console.log('asd')
+                }
+                
+                if(error.status === 404)
+                {
+                    $state.go('404');
+                }
+                else if(error.status === 401)
+                {
+                    $state.go('401');
+                }
+                else
+                {
+                    $state.go('front');
+                    console.log(error);
+                }
+                /*switch (error) {
                     case 'INVALID_USER':
                         $state.go('404');
                         break;
@@ -63,7 +81,7 @@
                         $state.go('home');
                         break;
 
-                }
+                }*/
 
 
         });

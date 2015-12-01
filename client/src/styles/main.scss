@@ -1,15 +1,89 @@
-@import "settings";
-// bower:scss
-@import "foundation/scss/foundation.scss";
-// endbower
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:700,400);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300);
 
-@import "custom";
 @import "animations";
+@import "mixins";
+@import "bootstrap-variables";
 @import "spinkit/spinners/7-three-bounce";
 
+// bower:scss
+@import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "components-font-awesome/scss/font-awesome.scss";
+// endbower
+
+@import "bootstrap-custom";
+
+
+html,
+body {
+	height: 100%;
+	/* The html and body elements cannot have any padding or margin. */
+}
+
+.pagination, .carousel, .panel-title a { cursor: pointer; }
+
+/*.pattern
+{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	//background: transparent url("http://www.getgoingtoday.org/images/template/grid.png") repeat scroll 0% 0%;
+	top: 0px;
+	left: 0px;
+	z-index: 3;
+}*/
+
+
+a {
+	outline: none !important;
+}
+
+
+:focus {outline:none;}
+
+
+.main{
+	//min-width: 1000px;
+}
+
+.main-view {
+	padding-top: 5px;
+	position: relative;
+	height: calc(100% - $navbar-inverse-height - $navbar-height);
+}
+
+#pattern
+{
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: transparent url(/img/grid.png) repeat scroll 0% 0%;
+	//background-color: black;
+	z-index: -1;
+}
+
+video#bgvid { 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: calc(100% + 1px);
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -2;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: url(/img/intro-sample.jpg) no-repeat;
+    background-size: cover; 
+}
+
+/*
 html {
   overflow-y: scroll;
 }
+*/
 
 .browsehappy {
   margin: 0.2em 0;

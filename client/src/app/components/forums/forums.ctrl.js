@@ -5,12 +5,10 @@
         .module('clientApp')
         .controller('ForumsCtrl', controller);
 
-    controller.$inject = ['$scope'];
-    function controller($scope)
+    controller.$inject = ['$scope' ,'ApiService'];
+    function controller($scope, ApiService)
     {
         var vm = this;
-        
-        
     }
 
 })();

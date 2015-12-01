@@ -22,13 +22,13 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // bower:js
-      'bower_components/modernizr/modernizr.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-animate/angular-animate.js',
-      'bower_components/angular-foundation/mm-foundation-tpls.js',
       'bower_components/angular-ui-router/release/angular-ui-router.js',
       'bower_components/angular-smart-table/dist/smart-table.js',
       'bower_components/socket.io-client/socket.io.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'bower_components/angular-resource/angular-resource.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "src/app/app.module.js",

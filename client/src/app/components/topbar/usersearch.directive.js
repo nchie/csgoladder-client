@@ -13,7 +13,7 @@
             scope: {},
             replace: true,
             restrict: 'E',
-            template: '<input type="text" ng-model="asyncSelected" placeholder="Search" typeahead="user as user.name for user in searchUsers($viewValue)" typeahead-template-url="app/components/topbar/usersearch-dropdown.tpl.html" typeahead-loading="loadingLocations" class="typeahead form-control">',
+            template: '<input type="text" class="form-control" autocomplete="off" placeholder="Search" name="search" ng-model="asyncSelected" uib-typeahead="user as user.name for user in searchUsers($viewValue)" typeahead-template-url="app/components/topbar/usersearch-dropdown.tpl.html" typeahead-focus-first="false" typeahead-loading="loadingLocations">',
 
             link: function(scope, element, attrs) {
         //TODO: Filter results serverside so that email and such aren't sent
@@ -23,8 +23,8 @@
                   angular.forEach(res.data, function(item){
                     results.push({
                         id: item.id,
-                        name: item.displayName,
-                        avatar: item.avatarSmall
+                        name: item.steam_name,
+                        avatar: item.avatar_small
                     });
                   });
                   return results;

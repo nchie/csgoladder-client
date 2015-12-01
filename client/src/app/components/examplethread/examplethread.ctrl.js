@@ -10,7 +10,6 @@
 	{
 	    var self = this;
 
-	    self.test = 'asd';
 
 	    self.examplePosts = [
 	    	{

@@ -1,22 +1,26 @@
-<div class="panel radius">
-  <table st-table="contentVm.displayedCollection" st-safe-src="contentVm.rowCollection" class="medium-12 hide-for-small">
-    <thead>
-      <tr>
-        <th st-sort="rank" st-delay="0" st-sort-default="true" st-skip-natural="true" width="50"> <a href="">#</a></th>
-        <th st-sort="team" st-delay="0" st-skip-natural="true"> <a href="">Team</a></th>
-        <th st-sort="wins" st-delay="0" st-skip-natural="true" width="90"> <a href="">Wins</a></th>
-        <th st-sort="losses" st-delay="0" st-skip-natural="true" width="90"> <a href="">Losses</a></th>
-        <th st-sort="rating" st-delay="0" st-skip-natural="true" width="100"> <a href="">Rating</a></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="row in contentVm.displayedCollection">
-        <td>{{row.rank}}</td>
-        <td>{{row.name}}</td>
-        <td>{{row.wins}}</td>
-        <td>{{row.losses}}</td>
-        <td>{{row.rating}}</td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container-fluid">
+  <div class="col-md-2"></div>
+  <div class="col-md-8 col-xs-12">
+    <table class="table" st-table="contentVm.displayedCollection" st-safe-src="contentVm.rowCollection">
+      <thead>
+        <tr>
+          <th st-sort="rank" st-delay="0" st-sort-default="true" st-skip-natural="true" width="50"> <a href="">#</a></th>
+          <th st-sort="team" st-delay="0" st-skip-natural="true"> <a href="">Team</a></th>
+          <th st-sort="wins" st-delay="0" st-skip-natural="true" width="90"> <a href="">Wins</a></th>
+          <th st-sort="losses" st-delay="0" st-skip-natural="true" width="90"> <a href="">Losses</a></th>
+          <th st-sort="rating" st-delay="0" st-skip-natural="true" width="100"> <a href="">Rating</a></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in contentVm.displayedCollection">
+          <td>{{row.rank}}</td>
+          <td>{{row.name}}</td>
+          <td>{{row.wins}}</td>
+          <td>{{row.losses}}</td>
+          <td>{{row.rating}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-2"></div>
 </div>

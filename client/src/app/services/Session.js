@@ -10,34 +10,40 @@
 	{
         var self = this;
 
-        self.create = create;
-        self.destroy = destroy;
+        var user;
+
+        //self.create = create;
+        //self.destroy = destroy;
         self.get = get;
+        self.remove = remove;
+        self.getUser = getUser;
 
         function get()
         {
-            $http
-                .get('/api/users/me')
+            return $http
+                .get('/api/session')
                     .then(function (res) {
-                        if(res.data.status === 'success')
-                        {
-                            create(res.data.data);
-                        }
-                        if(res.data.status === 'error')
-                        {
-                            destroy();
-                        }
+                        user = res.data;
+                        return res.data;
+                    })
+                    .catch(function (res){
+                        user = null;
+                    })
+        }
+
+        function remove()
+        {
+            return $http
+                .delete('/api/session')
+                    .then(function (res) {
+                        user = null;
+                        return res.data;
                     });
         }
 
-        function create(user)
+        function getUser()
         {
-            self.user = user;
-        }
-
-        function destroy()
-        {
-            self.user = null;
+            return user;
         }
 	}
 

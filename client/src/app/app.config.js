@@ -14,24 +14,23 @@
         $locationProvider.html5Mode(true);
 
         $stateProvider
+            .state('front',{
+                title: "Frontpage",
+                url: '/',
+                templateUrl: 'app/components/front/front.html',
+                controller: 'FrontCtrl',
+                controllerAs: 'contentVm',
+                data: {
+                }
+            })
             .state('home',{
                 title: "Home",
-                url: '/',
+                url: '/home',
                 templateUrl: 'app/components/home/home.html',
                 controller: 'HomeCtrl',
                 controllerAs: 'contentVm',
                 data: {
                 }
-            })
-            .state('nopermission',{
-                title: "No permission",
-                url: '/nopermission',
-                templateUrl: 'app/common/templates/nopermission.html'
-            })
-            .state('404',{
-                title: "404 Not found",
-                url: '/404',
-                templateUrl: 'app/common/templates/404.html'
             })
             .state('lobbies',{
                 title: "Lobbies",
@@ -42,13 +41,8 @@
                 data: {
                 },
                 resolve: {
-                    auth: ['AuthResolver', function resolveAuthentication(AuthResolver) { 
-                        return AuthResolver.resolve();
-                    }],
-                    lobbies: ['$stateParams', 'LobbyService', function($stateParams, LobbyService)
-                    {
-                        return LobbyService.refreshLobbies();
-                    }]
+                    auth: resolveAuth,
+                    lobbies: refreshLobbies
                 }
 
             })
@@ -90,35 +84,35 @@
             })
             .state('profile',{
                 title: "Profile",
-                url: '/profile?id',
+                url: '/profile/:id',
                 templateUrl: 'app/components/profile/profile.html',
                 controller: 'ProfileCtrl',
                 controllerAs: 'contentVm',
                 resolve: {
-                    auth: ['AuthResolver', function resolveAuthentication(AuthResolver) { 
-                        return AuthResolver.resolve();
-                    }],
-                    user: ['$stateParams', 'UserService', function($stateParams, UserService)
-                    {
-                        return UserService.getUser($stateParams.id);
-                    }]
+                    auth: resolveAuth,
+                    user: getUser
                 }
             })
 
             .state('team',{
                 title: "Team",
-                url: '/team?id',
+                url: '/team/:id',
                 templateUrl: 'app/components/team/team.html',
                 controller: 'TeamCtrl',
                 controllerAs: 'contentVm',
                 resolve: {
-                    auth: ['AuthResolver', function resolveAuthentication(AuthResolver) { 
-                        return AuthResolver.resolve();
-                    }],
-                    team: ['$stateParams', 'TeamService', function($stateParams, TeamService)
-                    {
-                        return TeamService.getTeam($stateParams.id);
-                    }]
+                    auth: resolveAuth,
+                    team: getTeam
+                }
+            })
+            .state('registerteam',{
+                title: "Register new team",
+                url: '/registerteam',
+                templateUrl: 'app/components/team/register.html',
+                controller: 'RegisterTeamCtrl',
+                controllerAs: 'contentVm',
+                resolve: {
+                    auth: resolveAuth
                 }
             })
             .state('ladders',{
@@ -127,11 +121,7 @@
                 templateUrl: 'app/components/ladders/ladders.html',
                 controller: 'LaddersCtrl',
                 controllerAs: 'contentVm',
-                resolve: {
-                    auth: ['AuthResolver', function resolveAuthentication(AuthResolver) { 
-                        return AuthResolver.resolve();
-                    }],
-                }
+
             })
             .state('examplethread',{
                 title: "Example thread",
@@ -140,9 +130,7 @@
                 controller: 'ThreadCtrl',
                 controllerAs: 'contentVm',
                 resolve: {
-                    auth: ['AuthResolver', function resolveAuthentication(AuthResolver) { 
-                        return AuthResolver.resolve();
-                    }],
+                    auth: resolveAuth
                 }
             })
             .state('settings',{
@@ -152,17 +140,74 @@
                 controller: 'SettingsCtrl',
                 controllerAs: 'contentVm',
                 resolve: {
-                    auth: ['AuthResolver', function resolveAuthentication(AuthResolver) { 
-                        return AuthResolver.resolve();
-                    }],
-                    user: ['UserService', function(UserService)
-                    {
-                        return UserService.getUser();
-                    }]
+                    auth: resolveAuth,
+                    user: getMe
                 }
+            })
+            .state('404',{
+                title: "Page does not exist",
+                url: '/404',
+                templateUrl: 'app/common/templates/404.html'
+            })
+            .state('401',{
+                title: "Unauthorized",
+                url: '/401',
+                templateUrl: 'app/common/templates/401.html'
             });
             
 
     }
+
+    resolveAuth.$inject = ['AuthResolver'];
+    function resolveAuth(AuthResolver){
+        return AuthResolver.resolve();
+    }
+
+    getUser.$inject = ['ApiService', '$stateParams'];
+    function getUser(ApiService, $stateParams){
+        //return UserService.get($stateParams.id);
+        var params = {};
+        if($stateParams.id)
+        {
+            params.id = $stateParams.id
+        }
+        else
+        {
+            params.id = 0;
+        }
+
+        return ApiService.users(params).get();
+    }
+
+    getMe.$inject = ['ApiService'];
+    function getMe(ApiService){
+        return ApiService.session().get();
+    }
+
+    refreshLobbies.$inject = ['LobbyService'];
+    function refreshLobbies(LobbyService){
+        return LobbyService.refreshLobbies();
+    }
+
+
+    getTeam.$inject = ['ApiService', '$stateParams'];
+    function getTeam(ApiService, $stateParams){
+        var params = {};
+        if($stateParams.id)
+        {
+            params.id = $stateParams.id
+        }
+        else
+        {
+            params.id = 0;
+        }
+        return ApiService.teams(params).get();
+    }
+
+    /*getTeam.$inject = ['TeamService', '$stateParams'];
+    function getTeam(TeamService, $stateParams){
+        return TeamService.get($stateParams.id);
+    }*/
+
 
 })();

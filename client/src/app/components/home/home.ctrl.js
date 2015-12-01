@@ -13,8 +13,8 @@
 		.module('clientApp')
 	    .controller('HomeCtrl', controller);
 
-    controller.$inject = ['$scope'];
-	function controller($scope)
+    controller.$inject = ['$scope', 'TeamService'];
+	function controller($scope, TeamService)
 	{
 	    var vm = this;
 

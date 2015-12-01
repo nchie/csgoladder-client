@@ -5,8 +5,8 @@
 		.module('clientApp')
 	    .controller('SettingsCtrl', controller);
 
-    controller.$inject = ['$scope', 'UserService', 'user', '$timeout'];
-	function controller($scope, UserService, user, $timeout)
+    controller.$inject = ['$scope', 'user', '$timeout', 'ApiService', '$resource'];
+	function controller($scope, user, $timeout, ApiService, $resource)
 	{
         var vm = this;
 
@@ -22,23 +22,14 @@
 
         vm.save = function(user)
         {
-            var updateUser = function(user)
-                {
-                    return UserService.updateUser(user);
-                },
-                printResult = function(result)
-                {
+            //user.$update()
+            ApiService.users(user).update()
+                .then(function(res){
                     setAlert('success', 'Profile updated!', 2000);
-                    return UserService.getUser();
-                },
-                exceptions = function(e)
-                {
-                    setAlert('danger', e.message, 3000);
-                };
-
-            updateUser(user)
-                .then(printResult)
-                .catch(exceptions);
+                })
+                .catch(function(e){
+                    //console.log(e)
+                })
         };
 
 

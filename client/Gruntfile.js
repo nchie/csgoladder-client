@@ -214,8 +214,8 @@ module.exports = function (grunt) {
     sass: {
         options: {
             includePaths: [
-                'bower_components',
-                'bower_components/foundation/scss'
+                'bower_components'
+                //'bower_components/foundation/scss'
             ],
             sourceMap: true
         },
@@ -398,7 +398,7 @@ module.exports = function (grunt) {
             '.htaccess',
             '*.html',
             'img/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            'fonts/{,*/}*.*'
           ]
         }, {
           expand: true,
@@ -406,6 +406,12 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>/img',
           src: ['generated/*']
         }]
+      },
+      videos: {
+        expand: true,
+        cwd: '<%= yeoman.app %>/vid',
+        dest: '<%= yeoman.dist %>/vid',
+        src: '{,*/}*.webm'
       },
       styles: {
         expand: true,
@@ -427,6 +433,7 @@ module.exports = function (grunt) {
       dist: [
         'sass',
         'copy:styles',
+        'copy:videos',
         'imagemin',
         'svgmin'
       ]

@@ -1,14 +1,15 @@
-<div class="panel radius">
+<div class="container-fluid">
   <div ng-if="contentVm.user">
-    <h1> <a href="http://steamcommunity.com/profiles/{{contentVm.user.steamId64}}">{{contentVm.user.displayName}}</a></h1><img ng-src="{{contentVm.user.avatarFull}}"/>
-    <p>{{contentVm.user.realName}}</p>
-    <p>{{contentVm.user.countryCode}}</p>
-    <p ng-if="!!contentVm.user.Team">
+    <h1> <a href="http://steamcommunity.com/profiles/{{contentVm.user.steamid64}}">{{contentVm.user.steam_name}}</a></h1><img ng-src="{{contentVm.user.avatar_full}}"/>
+    <p>{{contentVm.user.real_name}}</p>
+    <p>{{contentVm.user.country_code}}</p>
+    <p ng-if="!!contentVm.user.team">
        
-      Playing in <a ui-sref="team({id : contentVm.user.Team.id})">{{contentVm.user.Team.name}} </a>
+      Playing in <a ui-sref="team({id : contentVm.user.team.id})">{{contentVm.user.team.name}} </a>
     </p>
-    <p>Member since {{contentVm.user.creationDate | date:'yyyy-M-d' : UTC}}</p>
-    <p>SteamId64: {{contentVm.user.steamId64}}</p>
+    <p>Member since {{contentVm.user.creation_date | date:'yyyy-M-d' : UTC}}</p>
+    <p>SteamId64: {{contentVm.user.steamid64}}</p>
+    <btn class="btn btn-default" ng-click="contentVm.invite()" ng-if="contentVm.user.id != vm.user().id">Invite to team</btn>
   </div>
   <div ng-if="!contentVm.user">
     <div class="content-top">

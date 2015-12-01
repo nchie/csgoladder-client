@@ -1,39 +1,43 @@
-<div class="panel radius">
-  <table st-table="contentVm.displayedCollection" st-safe-src="contentVm.lobbyService.getLobbies()" class="medium-12 hide-for-small">
-    <thead>
-      <tr> 
-        <th st-sort="name" st-delay="0" st-skip-natural="true" width="200"> <a href="">Team</a></th>
-        <th st-sort="description" st-delay="0" st-skip-natural="true"> <a href="">Description</a></th>
-        <th st-sort="maps" st-delay="0" st-skip-natural="true" width="200"> <a href="">Maps</a></th>
-        <th st-sort="rating" st-delay="0" st-sort-default="reverse" st-skip-natural="true" width="100"> <a href="">Rating</a></th>
-        <th width="100"> </th>
-      </tr>
-      <tr>
-        <th>
-          <input st-search="name" placeholder="" st-delay="50" class="form-control" type="search">
-        </th>
-        <th>
-          <input st-search="description" placeholder="" st-delay="50" class="form-control" type="search">
-        </th>
-        <th>
-          <input st-search="maps" placeholder="" st-delay="50" class="form-control" type="search">
-        </th>
-        <th>
-          <input st-search="rating" placeholder="" st-delay="50" class="form-control" type="search">
-        </th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="row in contentVm.displayedCollection">
-        <td>{{row.name}}</td>
-        <td>{{row.description}}</td>
-        <td>{{row.maps}}</td>
-        <td>{{row.rating}}</td>
-        <td>
-          <!--button.tiny(ng-click="") Go!-->
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container-fluid">
+  <div class="col-md-2"></div>
+  <div class="col-md-8 col-xs-12">
+    <table st-table="contentVm.displayedCollection" st-safe-src="contentVm.lobbyService.getLobbies()" class="table">
+      <thead>
+        <tr> 
+          <th st-sort="name" st-delay="0" st-skip-natural="true" width="200"> <a href="">Team</a></th>
+          <th st-sort="description" st-delay="0" st-skip-natural="true"> <a href="">Description</a></th>
+          <th st-sort="maps" st-delay="0" st-skip-natural="true" width="200"> <a href="">Maps</a></th>
+          <th st-sort="rating" st-delay="0" st-sort-default="reverse" st-skip-natural="true" width="100"> <a href="">Rating</a></th>
+          <th width="100"> </th>
+        </tr>
+        <tr>
+          <th>
+            <input st-search="name" placeholder="" st-delay="50" class="form-control" type="search">
+          </th>
+          <th>
+            <input st-search="description" placeholder="" st-delay="50" class="form-control" type="search">
+          </th>
+          <th>
+            <input st-search="maps" placeholder="" st-delay="50" class="form-control" type="search">
+          </th>
+          <th>
+            <input st-search="rating" placeholder="" st-delay="50" class="form-control" type="search">
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in contentVm.displayedCollection">
+          <td>{{row.name}}</td>
+          <td>{{row.description}}</td>
+          <td>{{row.maps}}</td>
+          <td>{{row.rating}}</td>
+          <td>
+            <!--button.tiny(ng-click="") Go!-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-2"></div>
 </div>
